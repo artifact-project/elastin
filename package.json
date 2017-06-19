@@ -1,0 +1,31 @@
+{
+  "name": "elastin",
+  "version": "0.1.0",
+  "description": "Elastin",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "author": "RubaXa <trash@rubaxa.org>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^19.2.3",
+    "jest": "^20.0.3",
+    "ts-jest": "^20.0.4",
+    "typescript": "^2.3.3"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "\\.tests\\.ts$",
+    "transformIgnorePatterns": [],
+    "setupTestFrameworkScriptFile": "<rootDir>/__jest__/extensions.ts",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
+  }
+}
