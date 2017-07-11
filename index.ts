@@ -1,8 +1,11 @@
-import Observer, {isolate, autorun} from './src/Observer/Observer';
+import Observer, {IObserverOptions, isolate, autorun} from './src/Observer/Observer';
 import observable from './src/observable/observable';
-import query from './src/query/query';
+import query, {IQuery} from './src/query/query';
 
-export default {
+export {
+	IObserverOptions,
+	IQuery,
+
 	query,
 	isolate,
 	autorun,
