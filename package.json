@@ -1,10 +1,14 @@
 {
   "name": "elastin",
   "version": "0.1.0",
-  "description": "Elastin",
+  "description": "\"Connective material\" for your application.",
   "main": "index.ts",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "build": "tsc",
+    "clean": "git clean -f",
+    "prepublish": "npm run build",
+    "postpublish": "npm run clean"
   },
   "author": "RubaXa <trash@rubaxa.org>",
   "license": "MIT",
@@ -14,6 +18,12 @@
     "ts-jest": "^20.0.4",
     "typescript": "^2.3.3"
   },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "src/*/*.js",
+    "src/*/*.d.ts"
+  ],
   "jest": {
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
