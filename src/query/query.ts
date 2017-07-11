@@ -4,7 +4,7 @@ import observable from '../observable/observable';
 export interface IQuery {
 	key?: string;
 	qwery?: IQueryData;
-	(collection: any[]): any[]
+	(collection: any[]): any[];
 	where(property: string, value): IQuery;
 	where(property: string, operator: '==' | '===' | '<' | '>' | '>=' | '<=', value): IQuery;
 	orderBy(property: string, direction: 'desc' | 'asc'): IQuery;
