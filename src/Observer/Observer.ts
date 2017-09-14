@@ -22,6 +22,7 @@ export default class Observer {
 	args: object[];
 	context: object;
 	slaves: {[index: number]: object};
+	slavesKeys: string[];
 	options: IObserverOptions;
 	lastResult: any;
 	invalidated: boolean;
@@ -33,7 +34,8 @@ export default class Observer {
 		this.executor = executor;
 		this.args = [];
 		this.context = null;
-		this.slaves = {};
+		this.slaves = null;
+		this.slavesKeys = null;
 		this.options = options;
 		this.lastResult = null;
 		this.invalidated = false;
@@ -43,6 +45,7 @@ export default class Observer {
 	call(context?, args?) {
 		const __active = Observer.active;
 		const oldSlaves = this.slaves;
+		const oldSlaveKeys = this.slavesKeys;
 		let retVal;
 
 		if (__active) {
@@ -58,10 +61,11 @@ export default class Observer {
 
 		this.tick++;
 		this.slaves = {};
+		this.slavesKeys = [];
 
 		retVal = this.executor.apply(this.context, this.args);
 
-		Object.keys(oldSlaves).forEach(id => {
+		oldSlaveKeys.forEach(id => {
 			if (!this.slaves.hasOwnProperty(id)) {
 				oldSlaves[id].invalidated = true;
 			}
@@ -74,7 +78,12 @@ export default class Observer {
 	}
 
 	addSlave(observer) {
-		this.slaves[observer.id] = observer;
+		const id = observer.id;
+
+		if (this.slaves.hasOwnProperty(id)) {
+			this.slaves[id] = observer;
+			this.slavesKeys.push(id);
+		}
 	}
 
 	notify() {
@@ -83,18 +92,21 @@ export default class Observer {
 	}
 
 	destroy() {
-		this.destroyed = true;
+		if (!this.destroyed) {
+			this.destroyed = true;
 
-		Object.keys(this.slaves).forEach(id => {
-			this.slaves[id].invalidated = true;
-		});
+			Object.keys(this.slaves).forEach(id => {
+				this.slaves[id].invalidated = true;
+			});
 
-		this.options = {};
-		this.executor = null;
-		this.args = null;
-		this.context = null;
-		this.lastResult = null;
-		this.slaves = null;
+			this.options = {};
+			this.executor = null;
+			this.args = null;
+			this.context = null;
+			this.lastResult = null;
+			this.slaves = null;
+			this.slavesKeys = null;
+		}
 	}
 }
 
