@@ -65,7 +65,7 @@ export default class Observer {
 
 		retVal = this.executor.apply(this.context, this.args);
 
-		oldSlaveKeys.forEach(id => {
+		(oldSlaveKeys !== null) && oldSlaveKeys.forEach(id => {
 			if (!this.slaves.hasOwnProperty(id)) {
 				oldSlaves[id].invalidated = true;
 			}
@@ -93,9 +93,11 @@ export default class Observer {
 
 	destroy() {
 		if (!this.destroyed) {
+			const oldSlaveKeys = this.slavesKeys;
+
 			this.destroyed = true;
 
-			Object.keys(this.slaves).forEach(id => {
+			(oldSlaveKeys !== null) && oldSlaveKeys.forEach(id => {
 				this.slaves[id].invalidated = true;
 			});
 

@@ -2,7 +2,7 @@
   "name": "elastin",
   "version": "0.1.0",
   "description": "\"Connective material\" for your application.",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
     "ts-build": "tsc",
