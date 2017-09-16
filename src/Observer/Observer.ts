@@ -2,6 +2,7 @@ let cid = 0;
 
 export type IExecutor = () => void;
 
+// todo: Добавить `isolate`
 export interface IObserverOptions {
 	onnotify?(val);
 }
