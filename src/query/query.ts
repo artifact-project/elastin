@@ -4,6 +4,7 @@ import observable from '../observable/observable';
 export interface IQuery {
 	key?: string;
 	qwery?: IQueryData;
+
 	(collection: any[]): any[];
 	where(property: string, value): IQuery;
 	where(property: string, operator: '==' | '===' | '<' | '>' | '>=' | '<=', value): IQuery;
@@ -116,18 +117,17 @@ function compile(key, {where, orderBy, limit = null}: IQueryData) {
 						}
 
 						return true;
-					} else if (success) {
-						collection.push(item);
-						return true;
 					}
-				} else if (success) {
+				}
+
+				if (success) {
 					collection.push(item);
 					return true;
 				}
 			}
 
 			return false;
-		})
+		}),
 	};
 }
 
@@ -220,6 +220,8 @@ function getNext(query: IQuery, type, nextKey, item): IQuery {
 		cursor.where = where;
 		cursor.orderBy = orderBy;
 		cursor.limit = limit;
+		// cursor.first = first;
+		// cursor.last = last;
 
 		if (type === 'where') {
 			qwery[type].push(item);
